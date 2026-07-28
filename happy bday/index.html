@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fce4ec;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Pacifico', cursive;
+            cursor: pointer;
+        }
+
+        .cake {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+
+        .layer {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: buildUp 0.8s cubic-bezier(0.17, 0.67, 0.83, 1.67) forwards;
+        }
+
+        .plate {
+            width: 200px;
+            height: 15px;
+            background: #bdbdbd;
+            border-radius: 10px;
+            animation-delay: 0.5s;
+        }
+
+        .bottom-cake {
+            width: 160px;
+            height: 60px;
+            background: #8d6e63;
+            border-radius: 10px 10px 0 0;
+            animation-delay: 1.2s;
+            margin-bottom: -5px;
+        }
+
+        .top-cake {
+            width: 100px;
+            height: 45px;
+            background: #ec407a;
+            border-radius: 8px 8px 0 0;
+            animation-delay: 1.9s;
+            margin-bottom: -5px;
+        }
+
+        .candle {
+            font-size: 30px;
+            animation-delay: 2.6s;
+            margin-bottom: -5px;
+        }
+
+        .Happy__Birthday {
+            color: #c2185b;
+            font-size: 3.5rem;
+            text-align: center;
+            opacity: 0;
+            margin-top: 20px;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+            animation: fadeInText 1.5s ease-out forwards;
+            animation-delay: 3.5s;
+        }
+
+        @keyframes buildUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cake">
+        <div class="layer candle">🕯️</div>
+        <div class="layer top-cake"></div>
+        <div class="layer bottom-cake"></div>
+        <div class="layer plate"></div>
+    </div>
+
+    <h1 class="Happy__Birthday">Happy Birthday my Love!</h1>
+
+    <!-- Audio -->
+    <audio id="birthdayAudio">
+        <source src="./assets/Stephen Sanchez - Until I Found You (Official Video).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const audio = document.getElementById("birthdayAudio");
+
+        // Play music on first click (browser safe)
+        document.body.addEventListener("click", function () {
+            audio.play();
+
+            // Sync confetti with candle timing
+            setTimeout(() => {
+                confetti({
+                    particleCount: 180,
+                    spread: 90,
+                    origin: { y: 0.6 },
+                    colors: ['#ff4081', '#ff80ab', '#ffffff']
+                });
+            }, 2600);
+
+        }, { once: true });
+    </script>
+
+</body>
+</html>
